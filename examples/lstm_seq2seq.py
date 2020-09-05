@@ -151,16 +151,16 @@ decoder_target_data = np.zeros(
     dtype='float32')
 
 for i, (input_text_wakati, target_text_wakati) in enumerate(zip(input_text_wakati_list, target_text_wakati_list)):
-    for t, mrph in enumerate(input_text_wakati):
-        encoder_input_data[i, t, input_token_index[mrph.midasi]] = 1.
+    for t, wakati in enumerate(input_text_wakati):
+        encoder_input_data[i, t, input_token_index[wakati]] = 1.
     encoder_input_data[i, t + 1:, input_token_index[' ']] = 1.
     for t, mrph in enumerate(target_text_wakati):
         # decoder_target_data is ahead of decoder_input_data by one timestep
-        decoder_input_data[i, t, target_token_index[mrph.midasi]] = 1.
+        decoder_input_data[i, t, target_token_index[wakati]] = 1.
         if t > 0:
             # decoder_target_data will be ahead by one timestep
             # and will not include the start character.
-            decoder_target_data[i, t - 1, target_token_index[mrph.midasi]] = 1.
+            decoder_target_data[i, t - 1, target_token_index[wakati]] = 1.
     decoder_input_data[i, t + 1:, target_token_index[' ']] = 1.
     decoder_target_data[i, t:, target_token_index[' ']] = 1.
 

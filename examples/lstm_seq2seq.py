@@ -53,7 +53,7 @@ from __future__ import print_function
 
 from keras.models import Model
 from keras.layers import Input, LSTM, Dense
-# from pyknp import Juman
+from pyknp import Juman
 import numpy as np
 
 batch_size = 64  # Batch size for training.
@@ -78,12 +78,15 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
     target_text = '\t' + target_text + '\n'
     input_texts.append(input_text)
     target_texts.append(target_text)
-    for char in input_text:
-        if char not in input_characters:
-            input_characters.add(char)
-    for char in target_text:
-        if char not in target_characters:
-            target_characters.add(char)
+    jumanpp = Juman()
+    wakati_input = jumanpp.analysis(input_text)
+    wakati_target = jumanpp.analysis(target_text)
+    for mrph in wakati_input.mrph_list() :
+        if mrph.midasi not in input_characters:
+            input_characters.add(mrph.midasi)
+    for mrph in wakati_target.mrph_list():
+        if mrph.midasi not in target_characters:
+            target_characters.add(mrph.midasi)
 
 print('###input characters')
 print(input_characters)

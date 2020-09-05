@@ -142,15 +142,15 @@ print(target_token_index)
 encoder_input_data = np.zeros(
     (len(input_texts), max_encoder_seq_length, num_encoder_tokens),
     dtype='float32')
+print('####encoder_data')
 decoder_input_data = np.zeros(
     (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
     dtype='float32')
+print('####decoder_data')
 decoder_target_data = np.zeros(
     (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
     dtype='float32')
-
-print('####encoder_data')
-
+print('####decoder_data2')
 for i, (input_text_wakati, target_text_wakati) in enumerate(zip(input_text_wakati_list, target_text_wakati_list)):
     for t, wakati in enumerate(input_text_wakati):
         encoder_input_data[i, t, input_token_index[wakati]] = 1.

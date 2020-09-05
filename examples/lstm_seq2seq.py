@@ -85,6 +85,10 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
         if char not in target_characters:
             target_characters.add(char)
 
+print('###input characters')
+print(input_characters)
+print('###target characters')
+print(target_characters)
 input_characters = sorted(list(input_characters))
 target_characters = sorted(list(target_characters))
 num_encoder_tokens = len(input_characters)

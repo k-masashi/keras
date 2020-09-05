@@ -90,14 +90,14 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
         input_wakati_words = []
         target_wakati_words = []
         for mrph in wakati_input.mrph_list() :
+            input_wakati_words.append(mrph.midasi)
             if mrph.midasi not in input_characters:
                 print(mrph.midasi)
-                input_wakati_words.append(mrph.midasi)
                 input_characters.add(mrph.midasi)
         for mrph in wakati_target.mrph_list():
+            target_wakati_words.append(mrph.midasi)
             if mrph.midasi not in target_characters:
                 print(mrph.midasi)
-                target_wakati_words.append(mrph.midasi)
                 target_characters.add(mrph.midasi)
         
         input_text_wakati_list.append(input_wakati_words)

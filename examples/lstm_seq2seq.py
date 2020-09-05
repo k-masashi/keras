@@ -79,15 +79,19 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
     input_texts.append(input_text)
     target_texts.append(target_text)
     jumanpp = Juman()
-    wakati_input = jumanpp.analysis(input_text)
-    wakati_target = jumanpp.analysis(target_text)
-    for mrph in wakati_input.mrph_list() :
-        if mrph.midasi not in input_characters:
-            input_characters.add(mrph.midasi)
-    for mrph in wakati_target.mrph_list():
-        if mrph.midasi not in target_characters:
-            target_characters.add(mrph.midasi)
-
+    try:
+        wakati_input = jumanpp.analysis(input_text)
+        wakati_target = jumanpp.analysis(target_text)
+        for mrph in wakati_input.mrph_list() :
+            if mrph.midasi not in input_characters:
+                print(mrph.midasi)
+                input_characters.add(mrph.midasi)
+        for mrph in wakati_target.mrph_list():
+            if mrph.midasi not in target_characters:
+                print(mrph.midasi)
+                target_characters.add(mrph.midasi)
+    except:
+        print('faild wakati')
 print('###input characters')
 print(input_characters)
 print('###target characters')

@@ -66,6 +66,10 @@ data_path = '/content/drive/My Drive/seq2seq/google_coraboratory/keras_sample/ch
 # Vectorize the data.
 input_texts = []
 target_texts = []
+
+input_text_wakati_list = []
+target_text_wakati_list = []
+
 input_characters = set()
 target_characters = set()
 with open(data_path, 'r', encoding='utf-8') as f:
@@ -82,6 +86,9 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
     try:
         wakati_input = jumanpp.analysis(input_text)
         wakati_target = jumanpp.analysis(target_text)
+        input_text_wakati_list.append(wakati_input.mrph_list())
+        target_text_wakati_list.append(wakati_target.mrph_list())
+
         for mrph in wakati_input.mrph_list() :
             if mrph.midasi not in input_characters:
                 print(mrph.midasi)
@@ -96,6 +103,12 @@ print('###input characters')
 print(input_characters)
 print('###target characters')
 print(target_characters)
+
+print('###input wakati_list')
+print(input_text_wakati_list)
+print('###target wakati_list')
+print(target_text_wakati_list)
+
 input_characters = sorted(list(input_characters))
 target_characters = sorted(list(target_characters))
 num_encoder_tokens = len(input_characters)
@@ -131,17 +144,17 @@ decoder_target_data = np.zeros(
     (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
     dtype='float32')
 
-for i, (input_text, target_text) in enumerate(zip(input_texts, target_texts)):
-    for t, char in enumerate(input_text):
-        encoder_input_data[i, t, input_token_index[char]] = 1.
+for i, (input_text_wakati, target_text_wakati) in enumerate(zip(input_text_wakati_list, target_text_wakati_list)):
+    for t, mrph in enumerate(input_text_wakati):
+        encoder_input_data[i, t, input_token_index[mrph.midasi]] = 1.
     encoder_input_data[i, t + 1:, input_token_index[' ']] = 1.
-    for t, char in enumerate(target_text):
+    for t, mrph in enumerate(target_text_wakati):
         # decoder_target_data is ahead of decoder_input_data by one timestep
-        decoder_input_data[i, t, target_token_index[char]] = 1.
+        decoder_input_data[i, t, target_token_index[mrph.midasi]] = 1.
         if t > 0:
             # decoder_target_data will be ahead by one timestep
             # and will not include the start character.
-            decoder_target_data[i, t - 1, target_token_index[char]] = 1.
+            decoder_target_data[i, t - 1, target_token_index[mrph.midasi]] = 1.
     decoder_input_data[i, t + 1:, target_token_index[' ']] = 1.
     decoder_target_data[i, t:, target_token_index[' ']] = 1.
 

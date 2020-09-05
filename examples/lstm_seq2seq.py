@@ -70,7 +70,6 @@ target_characters = set()
 with open(data_path, 'r', encoding='utf-8') as f:
     lines = f.read().split('\n')
 for line in lines[: min(num_samples, len(lines) - 1)]:
-    print(line)
     # input_text, target_text, _ = line.split('\t')
     input_text, target_text = line.split('\t')
     # We use "tab" as the "start sequence" character
@@ -106,6 +105,13 @@ input_token_index = dict(
     [(char, i) for i, char in enumerate(input_characters)])
 target_token_index = dict(
     [(char, i) for i, char in enumerate(target_characters)])
+
+print('###input_token_index')
+print(input_token_index)
+
+print('####target_token_index')
+print(target_token_index)
+
 
 encoder_input_data = np.zeros(
     (len(input_texts), max_encoder_seq_length, num_encoder_tokens),

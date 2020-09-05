@@ -83,6 +83,7 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
     input_texts.append(input_text)
     target_texts.append(target_text)
     jumanpp = Juman()
+    print(line)
     try:
         wakati_input = jumanpp.analysis(input_text)
         wakati_target = jumanpp.analysis(target_text)
@@ -92,13 +93,11 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
         for mrph in wakati_input.mrph_list() :
             input_wakati_words.append(mrph.midasi)
             if mrph.midasi not in input_characters:
-                print(mrph.midasi)
                 input_characters.add(mrph.midasi)
         for mrph in wakati_target.mrph_list():
             if mrph.midasi != '\t':
                 target_wakati_words.append(mrph.midasi)
             if mrph.midasi not in target_characters:
-                print(mrph.midasi)
                 target_characters.add(mrph.midasi)
         
         input_text_wakati_list.append(input_wakati_words)

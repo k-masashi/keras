@@ -86,17 +86,22 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
     try:
         wakati_input = jumanpp.analysis(input_text)
         wakati_target = jumanpp.analysis(target_text)
-        input_text_wakati_list.append(wakati_input.mrph_list())
-        target_text_wakati_list.append(wakati_target.mrph_list())
 
+        input_wakati_words = []
+        target_wakati_words = []
         for mrph in wakati_input.mrph_list() :
             if mrph.midasi not in input_characters:
                 print(mrph.midasi)
+                input_wakati_words.add(mrph.midasi)
                 input_characters.add(mrph.midasi)
         for mrph in wakati_target.mrph_list():
             if mrph.midasi not in target_characters:
                 print(mrph.midasi)
+                target_wakati_words.add(mrph.midasi)
                 target_characters.add(mrph.midasi)
+        
+        input_text_wakati_list.append(input_wakati_words)
+        target_text_wakati_list.append(target_wakati_words)
     except:
         print('faild wakati')
 print('###input characters')

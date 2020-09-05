@@ -95,7 +95,8 @@ for line in lines[: min(num_samples, len(lines) - 1)]:
                 print(mrph.midasi)
                 input_characters.add(mrph.midasi)
         for mrph in wakati_target.mrph_list():
-            target_wakati_words.append(mrph.midasi)
+            if mrph != '\t':
+                target_wakati_words.append(mrph.midasi)
             if mrph.midasi not in target_characters:
                 print(mrph.midasi)
                 target_characters.add(mrph.midasi)

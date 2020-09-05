@@ -61,7 +61,7 @@ epochs = 100  # Number of epochs to train for.
 latent_dim = 256  # Latent dimensionality of the encoding space.
 num_samples = 10000  # Number of samples to train on.
 # Path to the data txt file on disk.
-data_path = '/content/drive/My Drive/seq2seq/google_coraboratory/keras_sample/chat_data.txt'
+data_path = '/content/drive/My Drive/seq2seq/google_coraboratory/keras_sample/chat_data_mini.txt'
 
 # Vectorize the data.
 input_texts = []
